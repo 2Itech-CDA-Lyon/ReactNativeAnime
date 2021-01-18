@@ -1,4 +1,4 @@
-export default interface Anime {
+export default interface IAnime {
   id: string;
   type: string;
   links: {
@@ -8,4 +8,4 @@ export default interface Anime {
     canonicalTitle: string,
   };
   relationships: any;
-}
+};

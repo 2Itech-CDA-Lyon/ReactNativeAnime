@@ -8,23 +8,23 @@
  * @format
  */
 
-import React from 'react';
+import React, { FC } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
-  Text,
   StatusBar,
 } from 'react-native';
 
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
+import AnimeList from './components/AnimeList';
 
 import animes from './data/anime';
 
 
-const App = () => {
+const App: FC = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -32,12 +32,14 @@ const App = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          {animes.data.map(anime => <Text>{anime.attributes.canonicalTitle}</Text>)}
+          <AnimeList animes={animes.data} />
         </ScrollView>
       </SafeAreaView>
     </>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   scrollView: {

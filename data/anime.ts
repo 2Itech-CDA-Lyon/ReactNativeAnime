@@ -1,4 +1,4 @@
-import Anime from "../models/Anime";
+import Anime from "../models/IAnime";
 
 interface AnimeList {
   data: Anime[];
