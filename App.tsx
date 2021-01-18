@@ -10,9 +10,7 @@
 
 import React, { FC } from 'react';
 import { Router, Scene } from 'react-native-router-flux';
-
-import AllAnime from './screens/AllAnime';
-import AnimeDetails from './screens/AnimeDetails';
+import { AllAnime, AnimeDetails } from './screens';
 
 const App: FC = () => {
   return (

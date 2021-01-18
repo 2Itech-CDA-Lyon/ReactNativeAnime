@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
-import IAnime from '../models/IAnime';
-import AnimePreview from './AnimePreview';
+import { AnimePreview } from '.';
+import { IAnime } from '../models';
 
 interface AnimeListProps{
   animes: IAnime[];
