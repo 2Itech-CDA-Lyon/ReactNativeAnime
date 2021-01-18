@@ -1,7 +1,7 @@
-import Anime from "../models/IAnime";
+import IAnime from "../models/IAnime";
 
 interface AnimeList {
-  data: Anime[];
+  data: IAnime[];
 }
 
 const animes: AnimeList = {

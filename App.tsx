@@ -23,7 +23,6 @@ import AnimeList from './components/AnimeList';
 
 import animes from './data/anime';
 
-
 const App: FC = () => {
   return (
     <>

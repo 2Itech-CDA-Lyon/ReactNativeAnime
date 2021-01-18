@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
 import IAnime from '../models/IAnime';
-import Anime from './Anime';
-
+import AnimePreview from './AnimePreview';
 
 interface AnimeListProps{
   animes: IAnime[];
@@ -11,7 +10,10 @@ interface AnimeListProps{
 const AnimeList: FC<AnimeListProps> = ({ animes }) => {
   return (
     <View>
-      {animes.map(anime => <Anime anime={anime} />)}
+      {animes.map(
+        (anime, index) =>
+          <AnimePreview key={index} anime={anime} />)
+      }
     </View>
   );
 };
