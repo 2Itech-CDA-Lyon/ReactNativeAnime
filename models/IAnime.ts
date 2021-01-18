@@ -1,3 +1,5 @@
+import IImage from './IImage';
+
 export default interface IAnime {
   id: string;
   type: string;
@@ -6,6 +8,9 @@ export default interface IAnime {
   };
   attributes: {
     canonicalTitle: string,
+    description: string,
+    posterImage?: IImage;
+    coverImage?: IImage;
   };
   relationships: any;
 };
