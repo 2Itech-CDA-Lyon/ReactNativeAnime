@@ -9,74 +9,20 @@
  */
 
 import React, { FC } from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  StatusBar,
-} from 'react-native';
+import { Router, Scene } from 'react-native-router-flux';
 
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
-import AnimeList from './components/AnimeList';
-
-import animes from './data/anime';
+import AllAnime from './screens/AllAnime';
+import AnimeDetails from './screens/AnimeDetails';
 
 const App: FC = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <AnimeList animes={animes.data} />
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <Router>
+      <Scene key="root">
+        <Scene key="home" component={AllAnime} title="Home" initial />
+        <Scene key="animeDetails" component={AnimeDetails} title="Anime Details" />
+      </Scene>
+    </Router>
   );
 };
-
-
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
 export default App;

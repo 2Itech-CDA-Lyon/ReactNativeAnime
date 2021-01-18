@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import { Text } from 'react-native';
+import { Button, Text } from 'react-native';
 import { Card } from 'react-native-elements';
+import { Actions } from 'react-native-router-flux';
 import IAnime from '../models/IAnime';
 
 interface AnimeProps {
@@ -18,6 +19,7 @@ const AnimePreview: FC<AnimeProps> = ({ anime }) =>
     <Text>
       {anime.attributes.description}
     </Text>
+    <Button title="Details" onPress={() => Actions.animeDetails({ id: anime.id })} />
   </Card>
 ;
 
