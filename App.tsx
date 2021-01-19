@@ -9,17 +9,30 @@
  */
 
 import React, { FC } from 'react';
-import { Router, Scene } from 'react-native-router-flux';
 import { AllAnime, AnimeDetails } from './screens';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+
+
+
+type RootStackParamList = {
+  Home: undefined,
+  AnimeDetails: { id: string },
+};
+
+
+
+const RootStack = createStackNavigator<RootStackParamList>();
+
 
 const App: FC = () => {
   return (
-    <Router>
-      <Scene key="root">
-        <Scene key="home" component={AllAnime} title="Home" initial />
-        <Scene key="animeDetails" component={AnimeDetails} title="Anime Details" />
-      </Scene>
-    </Router>
+    <NavigationContainer>
+      <RootStack.Navigator initialRouteName="Home">
+        <RootStack.Screen name="Home" component={AllAnime} />
+        <RootStack.Screen name="AnimeDetails" component={AnimeDetails} />
+      </RootStack.Navigator>
+    </NavigationContainer>
   );
 };
 

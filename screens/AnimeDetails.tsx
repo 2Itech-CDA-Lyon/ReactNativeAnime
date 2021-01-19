@@ -5,6 +5,7 @@ import animes from '../data/anime';
 
 interface AnimeDetailsProps {
   id: string,
+  route: any,
 }
 
 const findAnimeById = (id: string) => {
@@ -16,7 +17,8 @@ const findAnimeById = (id: string) => {
   return null;
 }
 
-const AnimeDetails: FC<AnimeDetailsProps> = ({ id }) => {
+const AnimeDetails: FC<AnimeDetailsProps> = ({ route }) => {
+  const { id } = route.params;
   const anime = findAnimeById(id);
 
   return (
