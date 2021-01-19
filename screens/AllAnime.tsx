@@ -1,10 +1,10 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { StatusBar, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import AnimeList from '../components/AnimeList';
-import animes from '../data/anime';
+import { IAnime } from '../models';
 import { RootStackParamList } from '../navigation';
 
 // Avec react-navigation, les composants qui représentent des écrans reçoivent automatiquement deux props:
@@ -24,7 +24,29 @@ interface AllAnimeProps {
   route: AllAnimeRouteProp;
 }
 
+// Cette interface décrit la structure attendue de la réponse à la requête AJAX
+interface AllAnimeApiResponse {
+  data: IAnime[];
+}
+
 const AllAnime: FC<AllAnimeProps> = () => {
+  // Retient l'état actuel de la liste des animés d'une exécution du composant à l'autre
+  const [animes, setAnimes] = useState<IAnime[]>([]);
+
+  // Associe un comportement à la création du composant
+  useEffect(
+    () => {
+      // Envoie une requête AJAX pour récupérer la liste des animés
+      fetch('https://kitsu.io/api/edge/trending/anime')
+      // Dès que la requête a répondu, transforme son contenu en objets JavaScript
+      .then( response => response.json() )
+      // Dès que la transformation est terminée, range le résultat dans la liste des animés
+      .then( (json: AllAnimeApiResponse) => setAnimes(json.data) );
+    },
+    // Liste de dépendances, tableau vide = le comportement s'exécutera une seule fois, à la création du composant
+    []
+  );
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -32,7 +54,7 @@ const AllAnime: FC<AllAnimeProps> = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          <AnimeList animes={animes.data} />
+          <AnimeList animes={animes} />
         </ScrollView>
       </SafeAreaView>
     </>
