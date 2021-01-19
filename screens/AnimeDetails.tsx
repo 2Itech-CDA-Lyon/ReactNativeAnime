@@ -1,9 +1,9 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { StatusBar, SafeAreaView, ScrollView, Text, StyleSheet } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import animes from '../data/anime';
+import { IAnime } from '../models';
 import { RootStackParamList } from '../navigation';
 
 // Avec react-navigation, les composants qui représentent des écrans reçoivent automatiquement deux props:
@@ -23,18 +23,30 @@ interface AnimeDetailsProps {
   route: AnimeDetailsRouteProp;
 }
 
-const findAnimeById = (id: string) => {
-  for (let anime of animes.data) {
-    if (anime.id === id) {
-      return anime;
-    }
-  }
-  return null;
+// Cette interface décrit la structure attendue de la réponse à la requête AJAX
+interface AnimeDetailsApiResponse{
+  data:IAnime;
 }
 
 const AnimeDetails: FC<AnimeDetailsProps> = ({ route }) => {
+  // Trouve l'ID de l'animé demandé dans les paramètres de la route
   const { id } = route.params;
-  const anime = findAnimeById(id);
+  // Retient l'état actuel de l'animé d'une exécution du composant à l'autre
+  const [anime,setAnime] = useState<IAnime>();
+
+  // Associe un comportement à la création du composant
+  useEffect(
+    () => {
+      // Envoie une requête AJAX pour récupérer l'animé demandé
+      fetch(`https://kitsu.io/api/edge/anime/${id}`)
+      // Dès que la requête a répondu, transforme son contenu en objets JavaScript
+      .then( response => response.json() )
+      // Dès que la transformation est terminée, range le résultat dans la liste des animés
+      .then( (json: AnimeDetailsApiResponse) => setAnime(json.data));
+    },
+    // Liste des dépendances
+    [id]
+  );
 
   return (
     <>
