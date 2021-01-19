@@ -12,13 +12,7 @@ import React, { FC } from 'react';
 import { AllAnime, AnimeDetails } from './screens';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-
-
-
-type RootStackParamList = {
-  Home: undefined,
-  AnimeDetails: { id: string },
-};
+import { RootStackParamList } from './navigation';
 
 
 

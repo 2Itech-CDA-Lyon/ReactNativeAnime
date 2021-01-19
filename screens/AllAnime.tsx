@@ -1,10 +1,30 @@
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC } from 'react';
 import { StatusBar, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import AnimeList from '../components/AnimeList';
 import animes from '../data/anime';
+import { RootStackParamList } from '../navigation';
 
-const AllAnime: FC = () => {
+// Avec react-navigation, les composants qui représentent des écrans reçoivent automatiquement deux props:
+// - navigation: qui contient un ensemble de fonctions permettant de changer d'écran
+// - route: qui contient des informations sur la route actuelle, et notamment les paramètres passés par l'écran précédent
+// Ce code permet de typer ces deux props, afin de pouvoir bénéficier de l'apport de TypeScript
+// (notamment, s'assurer que le code du composant est compatible avec les paramètres attendus par la route),
+// et dit en substance: le prop navigation dépend de la structure des routes déclarée dans RootStackParamList,
+// ainsi que du nom de route auquel est lié le compoasnt.
+// NOTE: ce code n'est absolument pas indispensable au bon fonctionnement de l'application et peut être omis.
+// Il permet simplement d'améliorer l'expérience de développement et de réduire l'erreur humaine.
+type AllAnimeNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+type AllAnimeRouteProp = RouteProp<RootStackParamList, 'Home'>;
+
+interface AllAnimeProps {
+  navigation: AllAnimeNavigationProp;
+  route: AllAnimeRouteProp;
+}
+
+const AllAnime: FC<AllAnimeProps> = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
